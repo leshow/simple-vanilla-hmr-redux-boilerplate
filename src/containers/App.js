@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import Footer from '../components/Footer';
-import HomeView from '../components/HomeView';
 
-export default () => (
+const App = (props) => (
   <div className="main-app-container">
     <div className="main-app-nav">
       <div id="main-app-title">Simple Vanilla-HMR Boilerplate</div>
@@ -13,7 +12,17 @@ export default () => (
         <span><Link to="/bar">Bar</Link></span>
       </div>
     </div>
-      <HomeView />
+    <div>
+      {React.Children.map(props.children, (child) =>
+        React.cloneElement(child)
+      )}
+    </div>
       <Footer />
   </div>
 );
+
+App.propTypes = {
+  children: PropTypes.element.isRequired
+};
+
+export default App;
